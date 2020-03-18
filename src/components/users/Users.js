@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import UserItem from "./UserItem";
 import Spinner from "../layout/Spinner";
-import Repos from "../repos/Repos";
 
 const Users = ({ users, loading }) => {
   if (loading) {
