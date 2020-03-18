@@ -2,16 +2,19 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
+import Repos from "../repos/Repos";
 
 class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
 
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    getUser: PropTypes.func.isRequired
+    getUser: PropTypes.func.isRequired,
+    repos: PropTypes.array.isRequired
   };
 
   render() {
@@ -61,22 +64,30 @@ class User extends Component {
                 <p>{bio}</p>
               </Fragment>
             )}
-            <a href={html_url} className="btn btn-dark my-1">Visit Github Profile</a>
+            <a href={html_url} className="btn btn-dark my-1">
+              Visit Github Profile
+            </a>
             <ul>
               <li>
-                {login && (<Fragment>
-                  <strong>Username: </strong> {login}
-                </Fragment>)}
+                {login && (
+                  <Fragment>
+                    <strong>Username: </strong> {login}
+                  </Fragment>
+                )}
               </li>
               <li>
-                {company && (<Fragment>
-                  <strong>Company: </strong> {company}
-                </Fragment>)}
+                {company && (
+                  <Fragment>
+                    <strong>Company: </strong> {company}
+                  </Fragment>
+                )}
               </li>
               <li>
-                {blog && (<Fragment>
-                  <strong>Website: </strong> {blog}
-                </Fragment>)}
+                {blog && (
+                  <Fragment>
+                    <strong>Website: </strong> {blog}
+                  </Fragment>
+                )}
               </li>
             </ul>
           </div>
@@ -87,6 +98,7 @@ class User extends Component {
           <div className="badge badge-light">Public Repos: {public_repos}</div>
           <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
+        <Repos repos={this.props.repos} />
       </Fragment>
     );
   }
